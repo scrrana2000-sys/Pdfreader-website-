@@ -1,0 +1,6 @@
+# robots.txt for PDF Reader Website
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: SITE_URL_PLACEHOLDER/sitemap.xml
