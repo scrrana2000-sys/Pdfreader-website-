@@ -94,7 +94,7 @@ export const ContactPage: React.FC = () => {
               </div>
             </div>
             <div className="pt-4 text-xs text-slate-400">
-              Configured via <span className="font-mono">SUPPORT_EMAIL_PLACEHOLDER</span>
+              Support contact: <span className="font-mono">radhachawan01@gmail.com</span>
             </div>
           </div>
 
@@ -146,7 +146,7 @@ export const ContactPage: React.FC = () => {
               </div>
             </div>
             <div className="pt-4 text-xs text-slate-400">
-              Configured via <span className="font-mono">GOOGLE_PLAY_URL_PLACEHOLDER</span>
+              Google Play: <span className="font-mono">pdf.reader.scr</span>
             </div>
           </div>
         </div>
