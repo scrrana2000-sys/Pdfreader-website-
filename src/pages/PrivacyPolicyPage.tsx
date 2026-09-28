@@ -293,7 +293,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Contact information is configured via <code className="font-mono">PRIVACY_CONTACT_EMAIL_PLACEHOLDER</code>. Replace this placeholder in <code className="font-mono">src/config/constants.ts</code> before official production deployment.
+                Privacy and legal inquiries can be sent to <a href="mailto:radhachawan01@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">radhachawan01@gmail.com</a>.
               </p>
             </div>
           </section>
