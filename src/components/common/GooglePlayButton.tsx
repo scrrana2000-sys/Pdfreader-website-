@@ -10,38 +10,24 @@ export const GooglePlayButton: React.FC<GooglePlayButtonProps> = ({
   className = '',
   size = 'lg',
 }) => {
-  const isPlaceholder = CONFIG.GOOGLE_PLAY_URL === 'GOOGLE_PLAY_URL_PLACEHOLDER';
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (isPlaceholder) {
-      e.preventDefault();
-      // Informative user feedback without invasive window.alert
-      const el = document.getElementById('play-store-note');
-      if (el) {
-        el.classList.remove('hidden');
-        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } else {
-        alert(
-          'Google Play release link is currently configured as a placeholder (GOOGLE_PLAY_URL_PLACEHOLDER). You can update this in src/config/constants.ts once published.'
-        );
-      }
-    }
-  };
-
   return (
     <div className="inline-flex flex-col items-center">
       <a
-        href={isPlaceholder ? '#download-notice' : CONFIG.GOOGLE_PLAY_URL}
-        target={isPlaceholder ? undefined : '_blank'}
-        rel={isPlaceholder ? undefined : 'noopener noreferrer'}
-        onClick={isPlaceholder ? handleClick : undefined}
+        href={CONFIG.GOOGLE_PLAY_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         className={`inline-flex items-center gap-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl border border-slate-700/80 shadow-md hover:shadow-lg transition-all active:scale-[0.98] select-none ${
           size === 'lg' ? 'px-6 py-3.5' : 'px-4 py-2.5'
         } ${className}`}
         aria-label="Get PDF Reader on Google Play"
       >
-        {/* Google Play Vector Icon */}
-        <svg className={size === 'lg' ? 'w-7 h-7' : 'w-5 h-5'} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          className={size === 'lg' ? 'w-7 h-7' : 'w-5 h-5'}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
           <path
             d="M3.609 1.813c-.312.336-.49.83-.49 1.455v17.464c0 .625.178 1.119.49 1.455l.078.07 9.808-9.808v-.23L3.687 2.422l-.078.071z"
             fill="#00E5FF"
@@ -64,17 +50,13 @@ export const GooglePlayButton: React.FC<GooglePlayButtonProps> = ({
           <span className="text-[10px] uppercase font-medium tracking-wider text-slate-400">
             GET IT ON
           </span>
-          <span className={`${size === 'lg' ? 'text-lg' : 'text-sm'} font-semibold font-sans tracking-tight`}>
+          <span
+            className={`${size === 'lg' ? 'text-lg' : 'text-sm'} font-semibold font-sans tracking-tight`}
+          >
             Google Play
           </span>
         </div>
       </a>
-
-      {isPlaceholder && (
-        <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-mono">
-          Package: {CONFIG.PACKAGE_NAME}
-        </span>
-      )}
     </div>
   );
 };
