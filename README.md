@@ -28,11 +28,11 @@ When preparing the website for public deployment, replace the following values:
 
 | Constant Name | Current Placeholder | Description & Where to Update |
 | :--- | :--- | :--- |
-| `GOOGLE_PLAY_URL` | `GOOGLE_PLAY_URL_PLACEHOLDER` | Replace with your live Google Play listing URL (e.g., `https://play.google.com/store/apps/details?id=pdf.reader.scr`) |
-| `PRIVACY_CONTACT_EMAIL` | `PRIVACY_CONTACT_EMAIL_PLACEHOLDER` | Replace with your dedicated email address for privacy and legal inquiries |
-| `SUPPORT_EMAIL` | `SUPPORT_EMAIL_PLACEHOLDER` | Replace with your customer support or feedback email address |
-| `DEVELOPER_NAME` | `DEVELOPER_NAME_PLACEHOLDER` | Replace with your personal or entity developer name |
-| `SITE_URL` | `SITE_URL_PLACEHOLDER` | Replace with your custom production domain (e.g., `https://pdfreader.app`) |
+| `GOOGLE_PLAY_URL` | `https://play.google.com/store/apps/details?id=pdf.reader.scr` | Official listing URL for package `pdf.reader.scr`; it becomes live when the Play listing is publicly available. |
+| `PRIVACY_CONTACT_EMAIL` | `radhachawan01@gmail.com` | Privacy and legal inquiries |
+| `SUPPORT_EMAIL` | `radhachawan01@gmail.com` | Customer support and feedback |
+| `DEVELOPER_NAME` | `Siddhanth Singh` | Developer / publisher name |
+| `SITE_URL` | Runtime origin or `VITE_SITE_URL` | Public hosting origin used for canonical URLs, robots.txt, and sitemap.xml. |
 
 > **Note on SEO & Static Files:**
 > When changing `SITE_URL`, also update the placeholder references in `public/robots.txt` and `public/sitemap.xml`.
