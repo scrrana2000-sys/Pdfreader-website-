@@ -18,7 +18,7 @@ This project is a fast, responsive, mobile-first, static-friendly website built 
 
 ---
 
-## 2. Configuration & Placeholders
+## 2. Configuration
 
 All editable constants, URLs, emails, and developer details are centrally maintained in a single configuration file:
 
@@ -26,7 +26,7 @@ All editable constants, URLs, emails, and developer details are centrally mainta
 
 When preparing the website for public deployment, replace the following values:
 
-| Constant Name | Current Placeholder | Description & Where to Update |
+| Constant Name | Current Value | Description |
 | :--- | :--- | :--- |
 | `GOOGLE_PLAY_URL` | `https://play.google.com/store/apps/details?id=pdf.reader.scr` | Official listing URL for package `pdf.reader.scr`; it becomes live when the Play listing is publicly available. |
 | `PRIVACY_CONTACT_EMAIL` | `radhachawan01@gmail.com` | Privacy and legal inquiries |
@@ -34,8 +34,7 @@ When preparing the website for public deployment, replace the following values:
 | `DEVELOPER_NAME` | `Siddhanth Singh` | Developer / publisher name |
 | `SITE_URL` | Runtime origin or `VITE_SITE_URL` | Public hosting origin used for canonical URLs, robots.txt, and sitemap.xml. |
 
-> **Note on SEO & Static Files:**
-> When changing `SITE_URL`, also update the placeholder references in `public/robots.txt` and `public/sitemap.xml`.
+> **SEO:** The production Express server generates `robots.txt` and `sitemap.xml` dynamically from the public request origin. Set `SITE_URL` or `VITE_SITE_URL` only when a fixed canonical host is required.
 
 ---
 
@@ -75,12 +74,16 @@ npm run preview
 
 ## 5. Deployment Options
 
-This website is built with React, Vite, and Tailwind CSS. It produces pure static HTML, JS, and CSS files, making it hostable anywhere:
+The frontend is built with React, Vite, and Tailwind CSS. The repository also includes a small Express server for production hosting on services such as Cloud Run.
 
-### GitHub Pages
-1. Push your changes to GitHub.
-2. In your repository settings, navigate to **Pages**.
-3. Select **GitHub Actions** as the build source and use the standard static Vite deployment workflow (or set the deployment folder to `dist/`).
+### Cloud Run / Node hosting
+The repository includes `server.js`, an Express production server, SPA fallback routing, a `/api/health` endpoint, and runtime-generated `robots.txt` and `sitemap.xml`. Use `npm run build` followed by `npm start`.
+
+### Static hosting (Vercel / Netlify / Cloudflare Pages)
+- Connect the GitHub repository.
+- Build command: `npm run build`
+- Output directory: `dist`
+- Configure the host to rewrite unknown routes to `/index.html`.
 
 ### Vercel / Netlify / Cloudflare Pages
 - Connect your GitHub repository.
@@ -99,14 +102,13 @@ This website is built with React, Vite, and Tailwind CSS. It produces pure stati
 ├── public/
 │   ├── favicon.svg              # Vector PDF document favicon
 │   ├── robots.txt               # Search engine directives
-│   └── sitemap.xml              # XML Sitemap for search indexing
 ├── src/
 │   ├── components/
 │   │   ├── common/              # Button, Section, FeatureCard, GooglePlayButton, SEO
 │   │   ├── home/                # HeroMockup (abstract Android PDF interface)
 │   │   └── layout/              # Navbar, Footer
 │   ├── config/
-│   │   └── constants.ts         # Central configuration and placeholders
+│   │   └── constants.ts         # Central production configuration
 │   ├── context/
 │   │   ├── RouterContext.tsx     # Lightweight client-side router & dynamic SEO tags
 │   │   └── ThemeContext.tsx      # Dark / Light theme toggle & persistence
@@ -123,6 +125,8 @@ This website is built with React, Vite, and Tailwind CSS. It produces pure stati
 │   ├── App.tsx                  # Root component & page router
 │   ├── index.css                # Tailwind CSS v4 styling & dark theme tokens
 │   └── main.tsx                 # React entry point
+├── server.js                   # Express production server and SEO endpoints
+├── .github/workflows/ci.yml    # Typecheck + production build verification
 └── tsconfig.json
 ```
 
