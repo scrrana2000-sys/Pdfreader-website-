@@ -8,6 +8,7 @@ export const SEOStructuredData: React.FC = () => {
   useEffect(() => {
     const scriptId = 'structured-data-jsonld';
     let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+
     if (!script) {
       script = document.createElement('script');
       script.id = scriptId;
@@ -16,7 +17,9 @@ export const SEOStructuredData: React.FC = () => {
     }
 
     const currentOrigin =
-      typeof window !== 'undefined' ? window.location.origin : CONFIG.SITE_URL;
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : CONFIG.SITE_URL;
 
     const structuredData = {
       '@context': 'https://schema.org',
@@ -29,11 +32,6 @@ export const SEOStructuredData: React.FC = () => {
           applicationCategory: 'ProductivityApplication',
           description:
             'A fast, simple PDF reader designed to help you read, organize and manage your documents on Android.',
-          offers: {
-            '@type': 'Offer',
-            price: '0',
-            priceCurrency: 'USD',
-          },
           featureList: [
             'Browse and open PDF files stored on the device',
             'PDF reader',
@@ -63,10 +61,6 @@ export const SEOStructuredData: React.FC = () => {
     };
 
     script.textContent = JSON.stringify(structuredData, null, 2);
-
-    return () => {
-      // Keep script or leave for crawling
-    };
   }, [currentPath]);
 
   return null;
