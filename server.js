@@ -16,9 +16,9 @@ app.get('/api/health', (_req, res) => {
 app.get('/robots.txt', (req, res) => {
   const origin = getPublicOrigin(req);
   res.type('text/plain').send(
-    'User-agent: *\\n' +
-    'Allow: /\\n' +
-    `Sitemap: ${origin}/sitemap.xml\\n`,
+    'User-agent: *\n' +
+    'Allow: /\n' +
+    `Sitemap: ${origin}/sitemap.xml\n`,
   );
 });
 
@@ -26,15 +26,20 @@ app.get('/sitemap.xml', (req, res) => {
   const origin = getPublicOrigin(req);
   const pages = ['/', '/features', '/about', '/download', '/privacy-policy', '/terms', '/contact'];
   const today = new Date().toISOString().slice(0, 10);
-  const entries = pages.map((page) => `  <url><loc>${origin}${page}</loc><lastmod>${today}</lastmod></url>`).join('\\n');
+  const entries = pages
+    .map(
+      (page) =>
+        `  <url><loc>${origin}${page}</loc><lastmod>${today}</lastmod></url>`,
+    )
+    .join('\n');
+
   res.type('application/xml').send(
-    `<?xml version="1.0" encoding="UTF-8"?>\\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\\n${entries}\\n</urlset>\\n`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>\n`,
   );
 });
 
-app.use(express.static(distDir, { extensions: ['html'] }));
+app.use(express.static(distDir));
 
-// Serve the SPA entry point for client-side routes.
 app.get('*', (_req, res) => {
   res.sendFile(path.join(distDir, 'index.html'));
 });
@@ -45,12 +50,13 @@ app.listen(port, '0.0.0.0', () => {
 
 function getPublicOrigin(req) {
   const configured = process.env.SITE_URL || process.env.VITE_SITE_URL;
-  if (configured) return configured.replace(/\\/$/, '');
+  if (configured) return configured.replace(/\/$/, '');
 
   const forwardedProto = req.headers['x-forwarded-proto'];
-  const proto = typeof forwardedProto === 'string'
-    ? forwardedProto.split(',')[0].trim()
-    : req.protocol;
+  const proto =
+    typeof forwardedProto === 'string'
+      ? forwardedProto.split(',')[0].trim()
+      : req.protocol;
 
   return `${proto}://${req.get('host')}`;
 }
