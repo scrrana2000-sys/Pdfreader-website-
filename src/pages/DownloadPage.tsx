@@ -38,10 +38,10 @@ export const DownloadPage: React.FC = () => {
         <div className="max-w-2xl mx-auto p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-md space-y-8">
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-              Official Google Play Release
+              Google Play Listing
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              Install directly onto your Android smartphone or tablet through Google Play for automatic updates and secure Google Play Protect verification.
+              Use the Google Play button below to open the listing for the PDF Reader Android app.
             </p>
           </div>
 
