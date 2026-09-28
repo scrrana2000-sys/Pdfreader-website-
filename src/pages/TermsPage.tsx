@@ -131,7 +131,7 @@ export const TermsPage: React.FC = () => {
             </p>
             <div className="p-4 rounded-xl bg-slate-100/70 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-1 text-xs sm:text-sm">
               <p><strong>Developer:</strong> {CONFIG.DEVELOPER_NAME}</p>
-              <p><strong>Email:</strong> <code className="font-mono text-blue-600 dark:text-blue-400">{CONFIG.SUPPORT_EMAIL}</code></p>
+              <p><strong>Email:</strong> <a href="mailto:radhachawan01@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline font-mono">radhachawan01@gmail.com</a></p>
               <p><strong>Repository:</strong> {CONFIG.GITHUB_REPO_URL}</p>
             </div>
           </section>
