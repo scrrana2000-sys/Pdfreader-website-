@@ -1,137 +1,100 @@
 # PDF Reader – Official Android App Website
 
-Official marketing and legal landing website for the Android application **PDF Reader** (`pdf.reader.scr`).
+Official marketing, support, and legal website for the Android application **PDF Reader** (`pdf.reader.scr`).
 
-## 1. Project Purpose
+## Project
 
-This project is a fast, responsive, mobile-first, static-friendly website built to present the PDF Reader Android application. It provides:
-- Core features and capabilities of the Android PDF Reader application
-- Transparency regarding on-device local document processing
-- Clear legal disclosures (Privacy Policy and Terms & Conditions)
-- Support resources, troubleshooting FAQs, and GitHub issue tracker links
-- Official Google Play store download access
+The site is built with React, TypeScript, Vite, and Tailwind CSS. It includes:
 
-**Android App Details:**
-- **App Name:** PDF Reader
-- **Package ID:** `pdf.reader.scr`
-- **Source Repository:** [https://github.com/scrrana2000-sys/pdfreader](https://github.com/scrrana2000-sys/pdfreader)
+- Home, Features, About, Download, Contact, Privacy Policy, and Terms pages
+- Responsive dark/light theme
+- SEO metadata and structured data
+- Dynamic `robots.txt` and `sitemap.xml` from the production server
+- Static-friendly frontend with SPA route fallback
+- Production health endpoint at `/api/health`
+- GitHub Actions verification for typecheck and production build
 
----
+## Production configuration
 
-## 2. Configuration
+Edit `src/config/constants.ts` for application-specific values.
 
-All editable constants, URLs, emails, and developer details are centrally maintained in a single configuration file:
+| Setting | Value |
+| --- | --- |
+| App name | PDF Reader |
+| Package ID | `pdf.reader.scr` |
+| Developer | Siddhanth Singh |
+| Privacy / support email | radhachawan01@gmail.com |
+| Google Play URL | `https://play.google.com/store/apps/details?id=pdf.reader.scr` |
+| Android minimum | Android 7.0 (API 24) or higher |
 
-📁 **`src/config/constants.ts`**
+The website automatically uses the deployed request origin for canonical URLs and the SEO endpoints. Set `SITE_URL` or `VITE_SITE_URL` only when you need a fixed canonical hostname.
 
-When preparing the website for public deployment, replace the following values:
+The Google Play URL is the standard listing URL for package `pdf.reader.scr`; it should be treated as live only after the app is publicly available on Google Play.
 
-| Constant Name | Current Value | Description |
-| :--- | :--- | :--- |
-| `GOOGLE_PLAY_URL` | `https://play.google.com/store/apps/details?id=pdf.reader.scr` | Official listing URL for package `pdf.reader.scr`; it becomes live when the Play listing is publicly available. |
-| `PRIVACY_CONTACT_EMAIL` | `radhachawan01@gmail.com` | Privacy and legal inquiries |
-| `SUPPORT_EMAIL` | `radhachawan01@gmail.com` | Customer support and feedback |
-| `DEVELOPER_NAME` | `Siddhanth Singh` | Developer / publisher name |
-| `SITE_URL` | Runtime origin or `VITE_SITE_URL` | Public hosting origin used for canonical URLs, robots.txt, and sitemap.xml. |
-
-> **SEO:** The production Express server generates `robots.txt` and `sitemap.xml` dynamically from the public request origin. Set `SITE_URL` or `VITE_SITE_URL` only when a fixed canonical host is required.
-
----
-
-## 3. Local Development
-
-To run the website locally on your computer:
+## Development
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Start local development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open `http://localhost:3000`.
 
----
-
-## 4. Build Command
-
-To create an optimized production build:
+## Verification
 
 ```bash
+npm run lint
 npm run build
 ```
 
-This compiles TypeScript, processes Tailwind CSS, and outputs the production-ready static assets to the `dist/` directory.
+## Production server
 
-To preview the production build locally:
+Build the frontend and start the Express server:
 
 ```bash
-npm run preview
+npm run build
+npm start
 ```
 
----
+The server listens on `PORT` when provided, otherwise port `8080`.
 
-## 5. Deployment Options
+Routes provided by the server:
 
-The frontend is built with React, Vite, and Tailwind CSS. The repository also includes a small Express server for production hosting on services such as Cloud Run.
+- `/api/health`
+- `/robots.txt`
+- `/sitemap.xml`
+- SPA routes such as `/privacy-policy`
+
+## Deployment
 
 ### Cloud Run / Node hosting
-The repository includes `server.js`, an Express production server, SPA fallback routing, a `/api/health` endpoint, and runtime-generated `robots.txt` and `sitemap.xml`. Use `npm run build` followed by `npm start`.
 
-### Static hosting (Vercel / Netlify / Cloudflare Pages)
-- Connect the GitHub repository.
+Use the repository as the source, run `npm install` during the build phase, run `npm run build`, and start with `npm start`. The included Express server handles SPA routing and generates SEO endpoints dynamically.
+
+### Static hosting
+
+For Vercel, Netlify, or Cloudflare Pages:
+
 - Build command: `npm run build`
 - Output directory: `dist`
-- Configure the host to rewrite unknown routes to `/index.html`.
+- Rewrite unknown application routes to `/index.html`
 
-### Vercel / Netlify / Cloudflare Pages
-- Connect your GitHub repository.
-- Build command: `npm run build`
-- Output directory: `dist`
-- Configure SPA rewrite rule (redirect `/*` to `/index.html` with status 200).
+The built frontend is otherwise static.
 
----
+## Legal pages
 
-## 6. Directory Structure
+The Privacy Policy is available at `/privacy-policy`.
 
-```text
-├── index.html                   # HTML entry point with meta tags & noscript fallback
-├── metadata.json                # Project identity & capabilities
-├── package.json                 # Dependencies & scripts
-├── public/
-│   ├── favicon.svg              # Vector PDF document favicon
-│   ├── robots.txt               # Search engine directives
-├── src/
-│   ├── components/
-│   │   ├── common/              # Button, Section, FeatureCard, GooglePlayButton, SEO
-│   │   ├── home/                # HeroMockup (abstract Android PDF interface)
-│   │   └── layout/              # Navbar, Footer
-│   ├── config/
-│   │   └── constants.ts         # Central production configuration
-│   ├── context/
-│   │   ├── RouterContext.tsx     # Lightweight client-side router & dynamic SEO tags
-│   │   └── ThemeContext.tsx      # Dark / Light theme toggle & persistence
-│   ├── data/
-│   │   └── features.ts          # Complete 16-feature metadata & workflow steps
-│   ├── pages/
-│   │   ├── AboutPage.tsx        # /about page
-│   │   ├── ContactPage.tsx      # /contact page with FAQs & support links
-│   │   ├── DownloadPage.tsx     # /download page with Google Play CTA
-│   │   ├── FeaturesPage.tsx     # /features page with category filters
-│   │   ├── HomePage.tsx         # / homepage
-│   │   ├── PrivacyPolicyPage.tsx # /privacy-policy complete legal disclosures
-│   │   └── TermsPage.tsx        # /terms complete conditions of use
-│   ├── App.tsx                  # Root component & page router
-│   ├── index.css                # Tailwind CSS v4 styling & dark theme tokens
-│   └── main.tsx                 # React entry point
-├── server.js                   # Express production server and SEO endpoints
-├── .github/workflows/ci.yml    # Typecheck + production build verification
-└── tsconfig.json
-```
+The policy discloses local document processing, Firebase Analytics, Firebase Crashlytics, Google AdMob, permissions, data sharing, retention, deletion, third-party services, and privacy contact information.
 
----
+## Source repositories
 
-## 7. License
+Website:
+https://github.com/scrrana2000-sys/Pdfreader-website-
+
+Android app:
+https://github.com/scrrana2000-sys/pdfreader
+
+## License
 
 Licensed under the Apache License, Version 2.0.
