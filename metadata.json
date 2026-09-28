@@ -2,5 +2,5 @@
   "name": "PDF Reader - Android App Website",
   "description": "Official website for the PDF Reader Android app. Fast, simple, and privacy-focused local PDF reading, search, bookmarks, and document management.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }
