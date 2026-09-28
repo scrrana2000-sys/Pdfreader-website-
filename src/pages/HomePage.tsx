@@ -246,7 +246,7 @@ export const HomePage: React.FC = () => {
                 Release Information:
               </p>
               <p>
-                Store link is configured via <code className="font-mono text-blue-600">GOOGLE_PLAY_URL_PLACEHOLDER</code>. Downloadable builds and source commits can also be verified on our official GitHub repository.
+                The official Google Play listing uses package <code className="font-mono text-blue-600">pdf.reader.scr</code>. The app source repository can also be verified on GitHub.
               </p>
             </div>
           </div>
