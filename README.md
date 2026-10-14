@@ -63,6 +63,7 @@ Routes provided by the server:
 - `/api/health`
 - `/robots.txt`
 - `/sitemap.xml`
+- `/app-ads.txt`
 - SPA routes such as `/privacy-policy`
 
 ## Deployment

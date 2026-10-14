@@ -22,6 +22,19 @@ app.get('/robots.txt', (req, res) => {
   );
 });
 
+app.get('/app-ads.txt', (_req, res) => {
+  res.type('text/plain');
+  res.sendFile(path.join(distDir, 'app-ads.txt'), (err) => {
+    if (err) {
+      res.sendFile(path.join(__dirname, 'public', 'app-ads.txt'), (err2) => {
+        if (err2) {
+          res.send('google.com, pub-9239068235254084, DIRECT, f08c47fec0942fa0\n');
+        }
+      });
+    }
+  });
+});
+
 app.get('/sitemap.xml', (req, res) => {
   const origin = getPublicOrigin(req);
   const pages = ['/', '/features', '/about', '/download', '/privacy-policy', '/terms', '/contact'];
