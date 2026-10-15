@@ -57,11 +57,24 @@ const RouterContext = createContext<RouterContextType | undefined>(undefined);
 
 function normalizePath(path: string): string {
   if (!path || path === '') return '/';
-  const clean = path.split('?')[0].split('#')[0];
-  if (clean.length > 1 && clean.endsWith('/')) {
-    return clean.slice(0, -1);
+  const clean = path.split('?')[0].split('#')[0].replace(/\/+$/, '');
+
+  const knownRoutes: string[] = [
+    '/features',
+    '/about',
+    '/privacy-policy',
+    '/terms',
+    '/contact',
+    '/download',
+  ];
+
+  for (const route of knownRoutes) {
+    if (clean.endsWith(route)) {
+      return route;
+    }
   }
-  return clean || '/';
+
+  return '/';
 }
 
 export const RouterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -144,14 +157,19 @@ export const RouterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const navigate = useCallback(
     (targetPath: string, options?: { replace?: boolean }) => {
-      const normalized = normalizePath(targetPath);
+      const route = normalizePath(targetPath);
+      const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL)
+        ? import.meta.env.BASE_URL.replace(/\/+$/, '')
+        : '';
+      const fullPath = targetPath.startsWith('/') ? `${baseUrl}${targetPath}` : targetPath;
+
       if (options?.replace) {
-        window.history.replaceState({}, '', normalized);
+        window.history.replaceState({}, '', fullPath);
       } else {
-        window.history.pushState({}, '', normalized);
+        window.history.pushState({}, '', fullPath);
       }
-      setCurrentPath(normalized);
-      updateMetaTags(normalized);
+      setCurrentPath(route);
+      updateMetaTags(route);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     [updateMetaTags],
@@ -159,9 +177,9 @@ export const RouterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   useEffect(() => {
     const handlePopState = () => {
-      const path = normalizePath(window.location.pathname);
-      setCurrentPath(path);
-      updateMetaTags(path);
+      const route = normalizePath(window.location.pathname);
+      setCurrentPath(route);
+      updateMetaTags(route);
     };
 
     window.addEventListener('popstate', handlePopState);
