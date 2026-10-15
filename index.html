@@ -9,7 +9,7 @@
       name="description"
       content="PDF Reader is a simple Android app for reading, searching, bookmarking, highlighting and managing PDF documents."
     />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="theme-color" content="#2563EB" />
 
     <meta property="og:type" content="website" />
@@ -33,15 +33,10 @@
       <div style="padding: 24px; max-width: 800px; margin: 0 auto; font-family: sans-serif; line-height: 1.6; color: #1e293b;">
         <h1 style="color: #0f172a; margin-bottom: 8px;">PDF Reader – Official Android Application</h1>
         <p><strong>Package:</strong> pdf.reader.scr</p>
-        <p>
-          A fast, simple PDF reader designed to help you read, organize and manage your documents on Android.
-        </p>
+        <p>A fast, simple PDF reader designed to help you read, organize and manage your documents on Android.</p>
         <hr style="margin: 20px 0; border: 0; border-top: 1px solid #cbd5e1;" />
         <h2>Privacy Policy Summary</h2>
-        <p>
-          PDF Reader is designed primarily for local PDF reading and document management.
-          PDF document contents are not intentionally uploaded to our own servers for ordinary reading functionality.
-        </p>
+        <p>PDF Reader is designed primarily for local PDF reading and document management. Document contents are not intentionally uploaded to our own servers for ordinary reading functionality.</p>
         <ul>
           <li><strong>Local Document Processing:</strong> Document contents stay on your device for ordinary reading.</li>
           <li><strong>Firebase Analytics:</strong> May be used for app usage measurement.</li>
@@ -49,13 +44,44 @@
           <li><strong>Google AdMob:</strong> May be used to serve advertisements.</li>
           <li><strong>Privacy Contact:</strong> radhachawan01@gmail.com</li>
         </ul>
-        <p>
-          Enable JavaScript to view the full interactive website.
-        </p>
+        <p>Enable JavaScript to view the full interactive website.</p>
       </div>
     </noscript>
 
+    <div id="boot-error" role="status" style="display:none; margin:24px auto; max-width:720px; padding:20px; border:1px solid #f59e0b; border-radius:12px; background:#fffbeb; color:#78350f; font:16px/1.5 system-ui,sans-serif;">
+      <strong>PDF Reader website did not start.</strong>
+      <p id="boot-error-detail" style="margin:8px 0 0;"></p>
+      <p style="margin:8px 0 0;">Please share a screenshot of this message with support.</p>
+    </div>
     <div id="root"></div>
+    <script>
+      (() => {
+        const showError = (message) => {
+          const panel = document.getElementById('boot-error');
+          const detail = document.getElementById('boot-error-detail');
+          if (!panel || !detail) return;
+          detail.textContent = String(message || 'Unknown startup error');
+          panel.style.display = 'block';
+        };
+        window.addEventListener('error', (event) => {
+          const target = event.target;
+          if (target && target !== window && target.src) {
+            showError('Could not load script/resource: ' + target.src);
+          } else if (event.message) {
+            showError(event.message + (event.filename ? ' (' + event.filename + ':' + event.lineno + ')' : ''));
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', (event) => {
+          showError('Unhandled promise rejection: ' + (event.reason?.message || event.reason || 'Unknown error'));
+        });
+        window.setTimeout(() => {
+          const root = document.getElementById('root');
+          if (root && root.childElementCount === 0) {
+            showError('The page loaded, but the app did not render within 4 seconds. Check whether JavaScript assets are blocked or a startup error occurred.');
+          }
+        }, 4000);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
