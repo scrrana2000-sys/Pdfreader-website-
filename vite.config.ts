@@ -6,7 +6,13 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   const repository = process.env.GITHUB_REPOSITORY;
   const repoName = repository ? repository.split('/')[1] : '';
-  const base = process.env.VITE_BASE_URL || (repoName ? `/${repoName}/` : '/');
+
+  // GitHub Actions also builds the Cloud Run version. Do not infer GitHub
+  // Pages hosting merely from GITHUB_REPOSITORY, or production assets get a
+  // /<repo>/ prefix and the React app renders blank on root-hosted services.
+  const base =
+    process.env.VITE_BASE_URL ||
+    (process.env.GITHUB_PAGES === 'true' && repoName ? `/${repoName}/` : '/');
 
   return {
     base,
